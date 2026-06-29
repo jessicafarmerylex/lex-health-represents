@@ -1,27 +1,852 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lexington Health Media Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
+    :root {
+      --ink: #17202a;
+      --muted: #5f6b7a;
+      --line: #dfe5ec;
+      --soft: #f5f7fa;
+      --white: #ffffff;
+      --accent: #184e77;
+      --accent-dark: #123b5a;
+      --accent-soft: #e8f2f8;
+      --green: #167c57;
+      --amber: #9a6b00;
+      --shadow: 0 14px 35px rgba(23, 32, 42, 0.08);
+      --radius: 18px;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--soft);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #102f48 0%, #184e77 58%, #2f7fa7 100%);
+      color: white;
+      padding: 56px 24px 42px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.86;
+      font-weight: 700;
+    }
+
     h1 {
-      margin-bottom: 10px;
+      margin: 0;
+      font-size: clamp(2.1rem, 4vw, 4rem);
+      line-height: 1.05;
+      max-width: 920px;
+    }
+
+    .intro {
+      margin: 18px 0 0;
+      max-width: 760px;
+      font-size: 1.08rem;
+      opacity: 0.92;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.32);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.10);
+    }
+
+    .button.primary {
+      background: white;
+      color: var(--accent);
+      border-color: white;
+    }
+
+    main {
+      padding: 28px 24px 64px;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-top: -54px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.4fr) minmax(180px, 0.7fr) minmax(180px, 0.7fr);
+      gap: 14px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.86rem;
+      margin-bottom: 7px;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 13px 14px;
+      font-size: 1rem;
+      background: white;
+      color: var(--ink);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 28px 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .summary h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .count {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 8px 22px rgba(23,32,42,0.05);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      transition: 0.18s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .expert-top {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .headshot {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: var(--accent-soft);
+      border: 1px solid var(--line);
+      flex: 0 0 auto;
+    }
+
+    .placeholder-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .card h3 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+
+    .body {
+      color: #314050;
+      margin: 12px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .status {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 12px;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .status.available {
+      background: #e7f6ef;
+      color: var(--green);
+    }
+
+    .status.timing {
+      background: #fff4d8;
+      color: var(--amber);
+    }
+
+    .card-actions {
+      margin-top: auto;
+      padding-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .link-button {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: white;
+      border-radius: 999px;
+      padding: 9px 12px;
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .link-button.filled {
+      background: var(--accent);
+      color: white;
+    }
+
+    .empty {
+      background: white;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      margin-top: 44px;
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    dialog {
+      border: none;
+      border-radius: 22px;
+      padding: 0;
+      max-width: 720px;
+      width: calc(100% - 28px);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.25);
+    }
+
+    dialog::backdrop {
+      background: rgba(10, 20, 30, 0.58);
+    }
+
+    .modal {
+      padding: 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+    }
+
+    .modal h2 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .close {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .detail-row {
+      margin: 13px 0;
+    }
+
+    .detail-row strong {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .admin-link {
+      color: inherit;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel {
+        margin-top: -34px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      header {
+        padding-top: 42px;
+      }
+
+      main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 16px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <div class="container">
+      <p class="eyebrow">Lexington Health Media Hub</p>
+      <h1>Find expert voices, client stories and health commentary fast.</h1>
+      <p class="intro">
+        A searchable media resource for journalists looking for credible health, life sciences, policy, NHS, pharma, biotech and medtech contributors from Lexington’s client roster.
+      </p>
+      <div class="top-actions">
+        <a class="button primary" href="#directory">Search the directory</a>
+        <a class="button" href="mailto:health@lexcomm.co.uk?subject=Media%20enquiry%20via%20Lexington%20Health%20Media%20Hub">Request support</a>
+        <a class="button" href="/admin/">Team login</a>
+      </div>
+    </div>
+  </header>
 
-<h1>Lexington Health Media Hub</h1>
-<p>Search for experts, stories and commentary from Lexington Health clients.</p>
+  <main>
+    <section class="container panel" id="directory">
+      <div class="controls">
+        <div>
+          <label for="searchInput">Search</label>
+          <input id="searchInput" type="search" placeholder="Try cancer, NHS, AI, diagnostics, women’s health..." />
+        </div>
 
-<p>Site is live ✅ CMS is connected ✅</p>
+        <div>
+          <label for="topicFilter">Topic</label>
+          <select id="topicFilter">
+            <option value="">All topics</option>
+          </select>
+        </div>
 
+        <div>
+          <label for="clientFilter">Client</label>
+          <select id="clientFilter">
+            <option value="">All clients</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tabs" aria-label="Directory sections">
+        <button class="tab active" data-view="experts">Experts</button>
+        <button class="tab" data-view="stories">Story opportunities</button>
+        <button class="tab" data-view="clients">Clients</button>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="summary">
+        <h2 id="sectionTitle">Experts</h2>
+        <div class="count" id="resultCount">Loading...</div>
+      </div>
+
+      <div class="grid" id="results"></div>
+
+      <div class="footer-note">
+        <strong>For journalists:</strong> this hub is designed to help you quickly find relevant voices and story angles. For interview requests, quote checks, briefing material or urgent deadlines, contact the Lexington Health team directly.
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detailDialog">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="modalTitle"></h2>
+          <p class="meta" id="modalSubtitle"></p>
+        </div>
+        <button class="close" id="closeDialog" aria-label="Close">×</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </dialog>
+
+  <script>
+    const state = {
+      view: "experts",
+      data: {
+        experts: [],
+        stories: [],
+        clients: []
+      },
+      query: "",
+      topic: "",
+      client: ""
+    };
+
+    const resultsEl = document.getElementById("results");
+    const resultCountEl = document.getElementById("resultCount");
+    const sectionTitleEl = document.getElementById("sectionTitle");
+    const searchInput = document.getElementById("searchInput");
+    const topicFilter = document.getElementById("topicFilter");
+    const clientFilter = document.getElementById("clientFilter");
+    const dialog = document.getElementById("detailDialog");
+    const closeDialog = document.getElementById("closeDialog");
+
+    const titles = {
+      experts: "Experts",
+      stories: "Story opportunities",
+      clients: "Clients"
+    };
+
+    function normalise(value) {
+      return String(value || "").toLowerCase().trim();
+    }
+
+    function asArray(value) {
+      if (!value) return [];
+      return Array.isArray(value) ? value : [value];
+    }
+
+    function truncate(text, limit = 185) {
+      const clean = String(text || "").replace(/\s+/g, " ").trim();
+      if (clean.length <= limit) return clean;
+      return clean.slice(0, limit).trim() + "…";
+    }
+
+    function initials(name) {
+      return String(name || "LH")
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0])
+        .join("")
+        .toUpperCase();
+    }
+
+    function imageOrPlaceholder(item) {
+      if (item.image) {
+        return `<img class="headshot" src="${item.image}" alt="${item.name || item.title || "Expert"}">`;
+      }
+      return `<div class="placeholder-img">${initials(item.name || item.title)}</div>`;
+    }
+
+    function getAllTopics() {
+      const topics = new Set();
+
+      state.data.experts.forEach(item => {
+        asArray(item.expertise).forEach(topic => topics.add(topic));
+        asArray(item.topics).forEach(topic => topics.add(topic));
+      });
+
+      state.data.stories.forEach(item => {
+        asArray(item.topics).forEach(topic => topics.add(topic));
+      });
+
+      state.data.clients.forEach(item => {
+        asArray(item.sectors).forEach(topic => topics.add(topic));
+        asArray(item.topics).forEach(topic => topics.add(topic));
+      });
+
+      return [...topics].filter(Boolean).sort((a, b) => a.localeCompare(b));
+    }
+
+    function getAllClients() {
+      const clients = new Set();
+
+      state.data.clients.forEach(item => {
+        if (item.name) clients.add(item.name);
+      });
+
+      state.data.experts.forEach(item => {
+        if (item.client) clients.add(item.client);
+      });
+
+      state.data.stories.forEach(item => {
+        if (item.client) clients.add(item.client);
+      });
+
+      return [...clients].filter(Boolean).sort((a, b) => a.localeCompare(b));
+    }
+
+    function populateFilters() {
+      getAllTopics().forEach(topic => {
+        const option = document.createElement("option");
+        option.value = topic;
+        option.textContent = topic;
+        topicFilter.appendChild(option);
+      });
+
+      getAllClients().forEach(client => {
+        const option = document.createElement("option");
+        option.value = client;
+        option.textContent = client;
+        clientFilter.appendChild(option);
+      });
+    }
+
+    function itemMatches(item) {
+      const q = normalise(state.query);
+      const topic = normalise(state.topic);
+      const client = normalise(state.client);
+
+      const searchable = normalise([
+        item.name,
+        item.title,
+        item.client,
+        item.summary,
+        item.bio,
+        item.description,
+        item.body,
+        item.availability,
+        item.timing,
+        asArray(item.expertise).join(" "),
+        asArray(item.topics).join(" "),
+        asArray(item.sectors).join(" "),
+        asArray(item.can_comment_on).join(" ")
+      ].join(" "));
+
+      const itemTopics = normalise([
+        asArray(item.expertise).join(" "),
+        asArray(item.topics).join(" "),
+        asArray(item.sectors).join(" ")
+      ].join(" "));
+
+      const itemClient = normalise(item.client || item.name);
+
+      if (q && !searchable.includes(q)) return false;
+      if (topic && !itemTopics.includes(topic)) return false;
+      if (client && !itemClient.includes(client)) return false;
+
+      return true;
+    }
+
+    function renderExpert(item, index) {
+      const tags = asArray(item.expertise).slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join("");
+
+      return `
+        <article class="card">
+          <div class="expert-top">
+            ${imageOrPlaceholder(item)}
+            <div>
+              <h3>${item.name || "Unnamed expert"}</h3>
+              <p class="meta">${item.title || ""}${item.client ? " · " + item.client : ""}</p>
+            </div>
+          </div>
+
+          <p class="body">${truncate(item.bio || item.body || item.summary || "No biography added yet.")}</p>
+
+          ${item.availability ? `<span class="status available">${item.availability}</span>` : ""}
+
+          <div class="tags">${tags}</div>
+
+          <div class="card-actions">
+            <button class="link-button filled" onclick="openDetail('experts', ${index})">View profile</button>
+            <a class="link-button" href="mailto:health@lexcomm.co.uk?subject=Interview%20request%3A%20${encodeURIComponent(item.name || "expert")}">Request interview</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderStory(item, index) {
+      const tags = asArray(item.topics).slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join("");
+
+      return `
+        <article class="card">
+          <h3>${item.title || "Untitled story opportunity"}</h3>
+          <p class="meta">${item.client || "Client TBC"}${item.expert ? " · " + item.expert : ""}</p>
+          <p class="body">${truncate(item.summary || item.body || "No summary added yet.")}</p>
+
+          ${item.timing ? `<span class="status timing">${item.timing}</span>` : ""}
+
+          <div class="tags">${tags}</div>
+
+          <div class="card-actions">
+            <button class="link-button filled" onclick="openDetail('stories', ${index})">View angle</button>
+            <a class="link-button" href="mailto:health@lexcomm.co.uk?subject=Story%20enquiry%3A%20${encodeURIComponent(item.title || "story")}">Request details</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderClient(item, index) {
+      const tags = asArray(item.sectors || item.topics).slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join("");
+
+      return `
+        <article class="card">
+          <h3>${item.name || "Unnamed client"}</h3>
+          <p class="meta">${item.type || item.sector || "Health client"}</p>
+          <p class="body">${truncate(item.description || item.body || "No client description added yet.")}</p>
+
+          <div class="tags">${tags}</div>
+
+          <div class="card-actions">
+            <button class="link-button filled" onclick="openDetail('clients', ${index})">View client</button>
+            <a class="link-button" href="mailto:health@lexcomm.co.uk?subject=Media%20enquiry%3A%20${encodeURIComponent(item.name || "client")}">Contact team</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      const allItems = state.data[state.view] || [];
+      const filtered = allItems.filter(itemMatches);
+
+      sectionTitleEl.textContent = titles[state.view];
+      resultCountEl.textContent = `${filtered.length} result${filtered.length === 1 ? "" : "s"}`;
+
+      if (!filtered.length) {
+        resultsEl.innerHTML = `
+          <div class="empty">
+            No matching results yet. Try removing a filter or adding more content through the <a class="admin-link" href="/admin/">CMS</a>.
+          </div>
+        `;
+        return;
+      }
+
+      resultsEl.innerHTML = filtered.map(item => {
+        const originalIndex = allItems.indexOf(item);
+        if (state.view === "experts") return renderExpert(item, originalIndex);
+        if (state.view === "stories") return renderStory(item, originalIndex);
+        return renderClient(item, originalIndex);
+      }).join("");
+    }
+
+    function openDetail(type, index) {
+      const item = state.data[type][index];
+
+      document.getElementById("modalTitle").textContent = item.name || item.title || "Details";
+      document.getElementById("modalSubtitle").textContent = item.client || item.title || item.type || "";
+
+      let html = "";
+
+      if (type === "experts") {
+        html = `
+          <div class="expert-top">
+            ${imageOrPlaceholder(item)}
+            <div>
+              <p class="meta">${item.title || ""}</p>
+              <p class="meta">${item.client || ""}</p>
+            </div>
+          </div>
+          <div class="detail-row"><strong>Biography</strong><div>${item.bio || item.body || "No biography added yet."}</div></div>
+          <div class="detail-row"><strong>Can comment on</strong><div>${asArray(item.can_comment_on || item.expertise).join(", ") || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Availability</strong><div>${item.availability || "Check with Lexington Health team"}</div></div>
+          <div class="detail-row"><strong>Media experience</strong><div>${item.media_experience || "Not specified"}</div></div>
+        `;
+      }
+
+      if (type === "stories") {
+        html = `
+          <div class="detail-row"><strong>Summary</strong><div>${item.summary || item.body || "No summary added yet."}</div></div>
+          <div class="detail-row"><strong>Why now</strong><div>${item.why_now || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Relevant expert</strong><div>${item.expert || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Timing</strong><div>${item.timing || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Topics</strong><div>${asArray(item.topics).join(", ") || "Not specified"}</div></div>
+        `;
+      }
+
+      if (type === "clients") {
+        html = `
+          <div class="detail-row"><strong>Description</strong><div>${item.description || item.body || "No description added yet."}</div></div>
+          <div class="detail-row"><strong>What they can talk about</strong><div>${asArray(item.topics || item.can_talk_about).join(", ") || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Sector</strong><div>${asArray(item.sectors || item.sector).join(", ") || "Not specified"}</div></div>
+          <div class="detail-row"><strong>Website</strong><div>${item.website ? `<a href="${item.website}" target="_blank" rel="noopener">${item.website}</a>` : "Not specified"}</div></div>
+        `;
+      }
+
+      html += `
+        <div class="card-actions">
+          <a class="link-button filled" href="mailto:health@lexcomm.co.uk?subject=Media%20enquiry%3A%20${encodeURIComponent(item.name || item.title || "Lexington Health Media Hub")}">Contact Lexington Health</a>
+        </div>
+      `;
+
+      document.getElementById("modalBody").innerHTML = html;
+      dialog.showModal();
+    }
+
+    window.openDetail = openDetail;
+
+    closeDialog.addEventListener("click", () => dialog.close());
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        state.view = tab.dataset.view;
+        render();
+      });
+    });
+
+    searchInput.addEventListener("input", event => {
+      state.query = event.target.value;
+      render();
+    });
+
+    topicFilter.addEventListener("change", event => {
+      state.topic = event.target.value;
+      render();
+    });
+
+    clientFilter.addEventListener("change", event => {
+      state.client = event.target.value;
+      render();
+    });
+
+    async function init() {
+      try {
+        const response = await fetch("/data/mediahub.json", { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error("Could not load data file");
+        }
+
+        const data = await response.json();
+
+        state.data.experts = data.experts || [];
+        state.data.stories = data.stories || [];
+        state.data.clients = data.clients || [];
+
+        populateFilters();
+        render();
+      } catch (error) {
+        resultCountEl.textContent = "No data file found";
+        resultsEl.innerHTML = `
+          <div class="empty">
+            The front end is working, but it cannot find <strong>/data/mediahub.json</strong> yet.
+            Add that file in GitHub, then refresh this page.
+          </div>
+        `;
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>
