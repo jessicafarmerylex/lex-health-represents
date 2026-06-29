@@ -1,0 +1,64 @@
+{
+  "experts": [
+    {
+      "name": "Dr Jane Smith",
+      "title": "Consultant Oncologist",
+      "client": "Example Health",
+      "expertise": ["Cancer", "Diagnostics", "NHS"],
+      "can_comment_on": ["Early diagnosis", "Cancer screening", "NHS pathways"],
+      "bio": "Dr Jane Smith is available to comment on cancer diagnosis, screening pathways and the practical challenges of improving access to earlier detection.",
+      "availability": "Available for print comment",
+      "media_experience": "Print and trade media",
+      "image": ""
+    },
+    {
+      "name": "Professor Adam Green",
+      "title": "Health Data Research Lead",
+      "client": "Example MedTech",
+      "expertise": ["AI", "Health data", "Digital health"],
+      "can_comment_on": ["AI in healthcare", "Data governance", "Digital transformation"],
+      "bio": "Professor Adam Green can comment on the use of AI and data-led tools in healthcare, including implementation, trust and system readiness.",
+      "availability": "Available for background briefing",
+      "media_experience": "Broadcast, panels and podcasts",
+      "image": ""
+    }
+  ],
+  "stories": [
+    {
+      "title": "How AI tools are changing diagnostics outside hospital",
+      "client": "Example MedTech",
+      "expert": "Professor Adam Green",
+      "topics": ["AI", "Diagnostics", "NHS", "Digital health"],
+      "summary": "A timely story opportunity on how AI-enabled diagnostic tools could support earlier triage and decision-making in community care.",
+      "why_now": "Growing interest in productivity, NHS capacity and safe adoption of digital tools.",
+      "timing": "Evergreen"
+    },
+    {
+      "title": "Why earlier cancer diagnosis remains a system challenge",
+      "client": "Example Health",
+      "expert": "Dr Jane Smith",
+      "topics": ["Cancer", "Screening", "Diagnostics", "NHS"],
+      "summary": "An expert-led angle on what needs to change to improve early cancer diagnosis across referral and screening pathways.",
+      "why_now": "Relevant to prevention, NHS performance and screening policy conversations.",
+      "timing": "Live now"
+    }
+  ],
+  "clients": [
+    {
+      "name": "Example Health",
+      "type": "Healthcare organisation",
+      "sectors": ["Cancer", "Diagnostics", "NHS"],
+      "description": "Example Health works across oncology and diagnostics, with a focus on improving access to earlier detection and more joined-up patient pathways.",
+      "topics": ["Cancer screening", "Early diagnosis", "Patient pathways"],
+      "website": ""
+    },
+    {
+      "name": "Example MedTech",
+      "type": "Medtech company",
+      "sectors": ["AI", "Digital health", "Diagnostics"],
+      "description": "Example MedTech develops digital tools designed to support healthcare professionals in diagnosis, triage and service planning.",
+      "topics": ["AI in healthcare", "Digital transformation", "Health data"],
+      "website": ""
+    }
+  ]
+}
