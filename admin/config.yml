@@ -1,0 +1,55 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "hub"
+    label: "Media Hub"
+    files:
+      - label: "Directory Content"
+        name: "mediahub"
+        file: "data/mediahub.json"
+        format: "json"
+        fields:
+          - label: "Experts"
+            name: "experts"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.client}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Client", name: "client", widget: "string", required: false }
+              - { label: "Expertise", name: "expertise", widget: "list", required: false }
+              - { label: "Can comment on", name: "can_comment_on", widget: "list", required: false }
+              - { label: "Biography", name: "bio", widget: "text", required: false }
+              - { label: "Availability", name: "availability", widget: "string", required: false }
+              - { label: "Media experience", name: "media_experience", widget: "string", required: false }
+              - { label: "Headshot", name: "image", widget: "image", required: false }
+
+          - label: "Story opportunities"
+            name: "stories"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.client}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Client", name: "client", widget: "string", required: false }
+              - { label: "Relevant expert", name: "expert", widget: "string", required: false }
+              - { label: "Topics", name: "topics", widget: "list", required: false }
+              - { label: "Summary", name: "summary", widget: "text", required: false }
+              - { label: "Why now", name: "why_now", widget: "text", required: false }
+              - { label: "Timing", name: "timing", widget: "string", required: false }
+
+          - label: "Clients"
+            name: "clients"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Type", name: "type", widget: "string", required: false }
+              - { label: "Sectors", name: "sectors", widget: "list", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Topics", name: "topics", widget: "list", required: false }
+              - { label: "Website", name: "website", widget: "string", required: false }
