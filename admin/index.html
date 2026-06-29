@@ -4,7 +4,19 @@
     <meta charset="utf-8" />
     <title>Lexington Health Media Hub CMS</title>
 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script type="module">
+      import { AuthError, MissingIdentityError, handleAuthCallback } from 'https://esm.sh/@netlify/identity@1.2.0'
+
+      try {
+        await handleAuthCallback()
+      } catch (error) {
+        if (error instanceof MissingIdentityError || error instanceof AuthError) {
+          console.warn(error.message)
+        } else {
+          throw error
+        }
+      }
+    </script>
   </head>
   <body>
 
